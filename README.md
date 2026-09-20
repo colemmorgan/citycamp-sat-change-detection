@@ -12,42 +12,6 @@ It shows the changes on a map. It ranks them. Volunteers can then go to a site a
 
 ---
 
-## What this project does not do
-
-Read this first. These limits are real.
-
-**The model does not say if a change is a problem.** It says that the ground looks different.
-A person must go to the site to find the cause.
-
-**We did not confirm any change on the ground.** No person visited any of the 113 sites.
-
-**We did not use the `geoemerge` package.** We wrote the lesson method again in Python.
-The new code does not need an Earth Engine account.
-
-**We did not use Google Earth Engine.** We read the same data from a public mirror.
-
-**We did not train on GLOBE data from the study area.** The study area holds 29 GLOBE
-observations. Not one has a usable land cover code. The model uses 148 GLOBE points from the
-rest of Florida, plus 318 points from OpenStreetMap.
-
-**We did not confirm the class labels with independent data.** Sentinel-2 NDVI confirms the
-*direction* of each change. It does not confirm that "Woody" or "Urban" is correct.
-
-**We did not use more than two years.** The data covers 2017 to 2025. We used 2017 and 2024.
-The project cannot show a trend.
-
-**We did not run the county at 10 m.** The county runs at 20 m. Only the campus area runs at
-10 m. At 20 m the model can miss a single building.
-
-**We did not use residential land as an urban label.** Gainesville houses sit under trees.
-These points teach the model that trees are urban.
-
-**We did not build a server, a database, or user accounts.** The map is a set of static files.
-
-**We did not build the 3D reconstruction.** GLOBE photos show four directions from one point. This is not enough to build a 3D model.
-
----
-
 ## 1. Recreation steps
 
 ### 1.1 Prerequisites
