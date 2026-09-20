@@ -59,10 +59,21 @@ def ensure_tile_index():
     print(f"  built {dst.name}: {len(out)} Florida tiles", flush=True)
     return out
 
-def fetch_globe():
+def fetch_globe(refresh=False):
+    """Statewide GLOBE land-cover observations, cached to disk.
+
+    The cache EXPIRES. It used to be kept forever, which quietly pinned the map
+    to whatever existed the first time the pipeline ran - new field observations
+    could never appear no matter how many times it was re-run. Pass --refresh to
+    force, or just let it age out.
+    """
     cache = c.RAW / "globe_fl_land_covers.json"
-    if cache.exists():
-        print("GLOBE: using cache", flush=True); return json.loads(cache.read_text())["results"]
+    if cache.exists() and not refresh:
+        age = (time.time() - cache.stat().st_mtime) / 86400
+        if age <= c.GLOBE_CACHE_MAX_AGE_DAYS:
+            print(f"GLOBE: using cache ({age*24:.1f}h old)", flush=True)
+            return json.loads(cache.read_text())["results"]
+        print(f"GLOBE: cache is {age:.1f}d old, re-fetching", flush=True)
     w, s, e, n = c.FL_BBOX
     url = c.GLOBE_API.format(proto="land_covers", start=c.GLOBE_START, end=c.GLOBE_END, w=w, s=s, e=e, n=n)
     print("GLOBE: fetching statewide Florida...", flush=True)
@@ -124,7 +135,7 @@ def sample_group(args):
 
 if __name__ == "__main__":
     t0 = time.time()
-    results = fetch_globe()
+    results = fetch_globe("--refresh" in sys.argv)
     print(f"GLOBE: {len(results)} land_cover records statewide", flush=True)
     pts = label_points(results)
     print(f"labelled (MucCode present): {len(pts)} of {len(results)}", flush=True)

@@ -1,4 +1,5 @@
 """Shared constants. Every value here was verified live — see plans/00-verified-facts.md."""
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -78,7 +79,11 @@ GLOBE_API = ("https://api.globe.gov/search/v1/measurement/protocol/measureddate/
              "?protocols={proto}&startdate={start}&enddate={end}"
              "&minlat={s}&maxlat={n}&minlon={w}&maxlon={e}&geojson=FALSE&sample=FALSE")
 FL_BBOX = (-87.7, 24.4, -79.9, 31.1)     # train statewide: only 10 obs exist in Alachua
-GLOBE_START, GLOBE_END = "2017-01-01", "2025-12-31"
+# End is TODAY, not a hard-coded date. A fixed end silently drops observations
+# made after it was written - including the ones collected in the field for this
+# project, which is exactly the data the map is meant to show.
+GLOBE_START, GLOBE_END = "2017-01-01", date.today().isoformat()
+GLOBE_CACHE_MAX_AGE_DAYS = 1             # older than this and fetch_globe re-fetches
 
 # 4-class scheme. Codes are FROZEN (frontend contract); labels are served via stats.json.
 CLASSES = {0: "Water / Wetland", 1: "Woody", 2: "Herbaceous", 3: "Urban / Barren"}
