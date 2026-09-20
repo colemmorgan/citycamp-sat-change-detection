@@ -1,0 +1,315 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+/* OpenLayers control styles. Required for the scale bar and attribution to
+   lay out; overridden to the design tokens further down this file. */
+@import 'ol/ol.css';
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Design tokens — plans/03-design-system.txt
+   Dark-only application. Tokens live on :root; there is no light theme.
+   ─────────────────────────────────────────────────────────────────────────── */
+:root {
+  /* icon */
+  --icon-base: #939496;
+  --icon-active: #e2e3e5;
+
+  /* text */
+  --text-body: #e2e3e5;
+  --text-heading: #f5f5f5;
+  --text-on-action: #fefeff;
+
+  /* surface */
+  --surface-0: #090909;
+  --surface-1: #0f1011;
+  --surface-2: #16171a;
+  --surface-3: #1a1c1f;
+  --surface-4: #2d2e30;
+  --surface-action: #5e69d1;
+
+  /* border */
+  --border-0: #1f1f24;
+  --border-1: #25262b;
+  --border-action: #6c77e5;
+
+  /* semantic states — proposed in plans/04, not in the source design doc.
+     Desaturated so they sit on near-black without glowing. */
+  --state-success: #4a9a62;
+  --state-warning: #c9973f;
+  --state-error: #c4544a;
+
+  /* radius — explicit scale. shadcn derives sm as calc(--radius - 4px),
+     which would yield 0px from a 4px base. See plans/04 §8. */
+  --radius-xs: 2px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 8px;
+}
+
+@theme inline {
+  /* shadcn surface mapping */
+  --color-background: var(--surface-0);
+  --color-foreground: var(--text-body);
+
+  --color-card: var(--surface-1);
+  --color-card-foreground: var(--text-body);
+  --color-popover: var(--surface-2);
+  --color-popover-foreground: var(--text-body);
+
+  --color-primary: var(--surface-action);
+  --color-primary-foreground: var(--text-on-action);
+
+  --color-secondary: var(--surface-2);
+  --color-secondary-foreground: var(--text-body);
+
+  --color-muted: var(--surface-2);
+  --color-muted-foreground: var(--icon-base);
+
+  --color-accent: var(--surface-3);
+  --color-accent-foreground: var(--text-heading);
+
+  --color-destructive: var(--state-error);
+  --color-destructive-foreground: var(--text-on-action);
+
+  --color-border: var(--border-0);
+  --color-input: var(--surface-4);
+  --color-ring: var(--border-action);
+
+  /* direct token access: bg-surface-2, text-heading, border-action, … */
+  --color-surface-0: var(--surface-0);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-4: var(--surface-4);
+  --color-surface-action: var(--surface-action);
+
+  --color-border-0: var(--border-0);
+  --color-border-1: var(--border-1);
+  --color-border-action: var(--border-action);
+
+  --color-heading: var(--text-heading);
+  --color-body: var(--text-body);
+  --color-on-action: var(--text-on-action);
+
+  --color-icon-base: var(--icon-base);
+  --color-icon-active: var(--icon-active);
+
+  --color-success: var(--state-success);
+  --color-warning: var(--state-warning);
+  --color-error: var(--state-error);
+
+  /* typography */
+  --font-sans: 'Funnel Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: 'Funnel Display', 'Funnel Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* radius */
+  --radius-xs: var(--radius-xs);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-size: 13px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Funnel Display is reserved for the "Spatial Awareness" wordmark alone.
+     Everything else, headings included, is Funnel Sans. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-heading;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  /* Focus: a visible action ring, never a removed outline. */
+  :focus-visible {
+    outline: 1px solid var(--border-action);
+    outline-offset: 1px;
+  }
+
+  /* Compact scrollbars — panels are dense and native bars are too heavy. */
+  ::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--surface-4);
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a3b3e;
+  }
+}
+
+@layer components {
+  /* Section label used across panel headers. */
+  .panel-label {
+    @apply text-icon-base font-medium uppercase;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  /* Numeric readouts: tabular so values stop jittering as they update. */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   OpenLayers overrides — OL ships light-theme controls we do not use.
+   ─────────────────────────────────────────────────────────────────────────── */
+.ol-viewport canvas {
+  outline: none;
+}
+
+.ol-zoom,
+.ol-rotate,
+.ol-attribution {
+  display: none !important;
+}
+
+/*
+ * Esri's "Dark Gray" canvas is a mid grey. Darkened here so the imagery and the
+ * change raster stay the brightest things on screen, per the design system's
+ * map-first rule. Applied via the layer className OL puts on its container.
+ */
+.basemap-dark-layer {
+  filter: brightness(0.42) saturate(0.55) contrast(1.08);
+}
+
+/*
+ * Scale bar. OL ships a light-theme control with absolute positioning; this
+ * un-positions it so it flows inside the legend stack, and restyles it to the
+ * design tokens.
+ */
+/* Un-corner it: OL pins the control to the bottom-left of the map. Position is
+   re-set (not cleared) in the centring block below — see the note there on why
+   `static` is not an option. */
+.scalebar-host .ol-scale-bar,
+.scalebar-host .ol-scale-line {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  bottom: auto;
+}
+
+.scalebar-host .ol-scale-bar-inner {
+  border-color: var(--border-1) !important;
+}
+
+.scalebar-host .ol-scale-singlebar {
+  height: 5px;
+  border-color: var(--border-1) !important;
+  opacity: 1;
+}
+
+/* Alternating fill: first step in the action colour, second in a neutral. */
+.scalebar-host .ol-scale-singlebar-odd {
+  background-color: var(--surface-action);
+}
+.scalebar-host .ol-scale-singlebar-even {
+  background-color: var(--surface-4);
+}
+
+.scalebar-host .ol-scale-text,
+.scalebar-host .ol-scale-step-text {
+  color: var(--icon-base);
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  text-shadow: none;
+  bottom: auto;
+}
+
+.scalebar-host .ol-scale-text {
+  position: static;
+  display: block;
+  width: auto;
+  margin-bottom: 3px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/*
+ * Vertical centring.
+ *
+ * The control's ink does not fill its box. OL emits the step labels as
+ * position:absolute with bottom:-5px, and the tick markers with inline
+ * top:-10px (top:3px for the leading one), so both hang outside the flow. Two
+ * consequences drive every rule below:
+ *
+ *  1. .ol-scale-bar MUST stay positioned. Making it `static` removes the
+ *     containing block, and the labels then resolve bottom:-5px against the
+ *     Legend root instead — which is what threw the whole thing off centre.
+ *  2. Box height is therefore useless for centring. The host is given an
+ *     explicit height equal to the real ink extent, and the bar is offset
+ *     inside it by exactly the marker overhang.
+ *
+ * Ink, measured from the bar box with a 5px singlebar and 9px markers:
+ *   markers  -5 .. 4      labels  4.5 .. 19      => 24px total
+ */
+.scalebar-host {
+  position: relative;
+  height: 24px;
+}
+
+.scalebar-host .ol-scale-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 5px; /* the marker overhang, so ink starts flush at host top */
+  height: auto;
+  padding: 0;
+}
+
+.scalebar-host .ol-scale-bar-inner {
+  border: 0 !important;
+}
+
+/* Ticks sized to the 5px bar rather than OL's 15px default, so they read as end
+   caps instead of spikes through it. */
+.scalebar-host .ol-scale-step-marker {
+  height: 9px !important;
+  background-color: var(--icon-base) !important;
+}
+
+/* The leading marker is the only direct child of the inner element, and the one
+   OL gives top:3px. Pull it onto the same line as the others, which sit at -5. */
+.scalebar-host .ol-scale-bar-inner > .ol-scale-step-marker {
+  top: -5px !important;
+}
+
+/* OL writes inline cursor styles; tool modes override via body class. */
+.map-cursor-crosshair .ol-viewport {
+  cursor: crosshair;
+}
+.map-cursor-grab .ol-viewport {
+  cursor: grab;
+}
+.map-cursor-grab .ol-viewport:active {
+  cursor: grabbing;
+}

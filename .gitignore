@@ -41,3 +41,7 @@ aef_index.csv
 *.swp
 .idea/
 .vscode/
+
+# TypeScript incremental build cache
+client/tsconfig.tsbuildinfo
+*.tsbuildinfo
