@@ -74,16 +74,21 @@ land cover using MUC (Modified UNESCO Classification) codes.
 |---|---|
 | **API** | `https://api.globe.gov/search/v1/measurement/protocol/measureddate/lat/lon/` |
 | **Protocol** | `land_covers` |
-| **Query window** | 2017-01-01 to 2025-12-31, Florida bounding box |
+| **Query window** | 2017-01-01 to present, Florida bounding box |
 | **Records returned** | **691** statewide |
 | **Records with a usable MUC code** | **148** (543 have `MucCode: null`) |
-| **Records inside the study area** | **10** |
+| **Records inside the study area** | **29** (11 sites, 7 contributors) |
 | **Usable records inside the study area** | **0** |
 
-**This dataset is both an input and the project's central finding.** Inside the study area there
-are exactly 10 land-cover observations. All are from **one site** (`17RLN604829`), all fall within
-a **six-week window in late 2025**, and **not one** carries a usable land-cover classification.
-Zero volunteer observations from the study area could train the model.
+**This dataset is both an input and the project's central finding.** Inside the study area there are **29** GLOBE land-cover observations, from **11 distinct sites**
+and **7 different contributors**, spanning 2025 and 2026 — and **not one** carries a usable
+land-cover classification. Zero volunteer observations from the study area could train the model.
+
+The bottleneck is not turnout. People do go out and observe: they photograph the site, record
+ground conditions, and write field notes — several of the 2026 observations explicitly describe
+change ("New building to north", "LCMS change", "Student Health Care building finished in 2022").
+What is missing every time is the MUC land-cover classification step, which is the only part that
+produces a label a model can learn from.
 
 That gap is the reason the project exists: change detection produces a ranked, finite list of
 places worth visiting, which is what makes contributing an observation worth the effort.

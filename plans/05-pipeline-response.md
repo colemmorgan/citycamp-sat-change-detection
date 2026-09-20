@@ -75,9 +75,15 @@ and never appears as a legend key.
 | `globe_unusable` (no MUC code, cannot be modelled) | 10 | **10** |
 | `osm_derived` (supplement for starved classes) | 264 | 264 |
 
-Inside the study area there are exactly **10** GLOBE land-cover observations. All from **one site**
-(`17RLN604829`), all within **six weeks of late 2025**, and **not one** carries a usable land-cover
-classification. **Zero** volunteer observations trained the Gainesville model.
+Inside the study area there are **29** GLOBE land-cover observations, from **11 distinct sites**
+and **7 different contributors**, spanning 2025 and 2026 — and **not one** carries a usable
+land-cover classification. Zero volunteer observations from the study area could train the model.
+
+The bottleneck is not turnout. People do go out and observe: they photograph the site, record
+ground conditions, and write field notes — several of the 2026 observations explicitly describe
+change ("New building to north", "LCMS change", "Student Health Care building finished in 2022").
+What is missing every time is the MUC land-cover classification step, which is the only part that
+produces a label a model can learn from.
 
 So the map can make a stronger claim than planned: not "only 10 observations" but
 *"10 observations, one location, none usable."* An empty `globe_volunteer` layer inside the AOI is

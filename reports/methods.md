@@ -471,10 +471,15 @@ parking lot, not habitat loss.
 
 ## 9. The finding that frames the project
 
-Inside the study area there are exactly **10** GLOBE land-cover observations. All are from **one
-site** (`17RLN604829`), all fall within a **six-week window in late 2025**, and **not one** carries
-a usable land-cover classification. **Zero** volunteer observations from the study area could train
-the model.
+Inside the study area there are **29** GLOBE land-cover observations, from **11 distinct sites**
+and **7 different contributors**, spanning 2025 and 2026 — and **not one** carries a usable
+land-cover classification. Zero volunteer observations from the study area could train the model.
+
+The bottleneck is not turnout. People do go out and observe: they photograph the site, record
+ground conditions, and write field notes — several of the 2026 observations explicitly describe
+change ("New building to north", "LCMS change", "Student Health Care building finished in 2022").
+What is missing every time is the MUC land-cover classification step, which is the only part that
+produces a label a model can learn from.
 
 This is why the labels had to be augmented from OSM, why the model is weaker on volunteer data
 than on OSM data, and why the deliverable is a ranked task list rather than a map with a
