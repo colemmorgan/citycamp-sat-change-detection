@@ -103,11 +103,18 @@ we were fixing. Restricting Urban labels to impervious surfaces lifted Urban rec
 ```
 L4 = (change ≥ p97) ∧ (class₂₀₁₇ ≠ class₂₀₂₄) ∧ (min confidence ≥ 0.5) ∧ (patch ≥ 1 ha)
 ```
-14.9% of pixels flip class, but the flips are near-symmetric — 126k Herbaceous→Woody against
-118k Woody→Herbaceous. That symmetry is classifier boundary flicker, not real change. Cosine
-change is computed from the embeddings and is independent of the classifier, so it suppresses
-flicker; the 1 ha contiguity filter removes the rest, because real land change is contiguous
-and flicker is salt-and-pepper.
+16.5% of pixels flip class, but the flips are near-symmetric — 81,038 Herbaceous→Woody against
+92,096 Woody→Herbaceous (ratio 0.88). Balanced two-way exchange across a decision boundary is the
+signature of classifier flicker; real landscape change is directional. Cosine change is computed
+from the embeddings with no shared parameters with the classifier, so it suppresses that flicker,
+and the 1 ha contiguity filter removes the rest because real land change is contiguous while
+flicker is salt-and-pepper.
+
+The gate demonstrably works: after gating, the same pair becomes 6,167 Woody→Herbaceous against
+2,945 Herbaceous→Woody — ratio 0.48. A filter removing pixels at random would preserve the 0.88
+symmetry; instead a balanced exchange becomes a 2:1 directional bias toward vegetation loss.
+
+Full method, validation and limitations: `reports/methods.md`.
 
 ### Task ranking
 Ranked by **category first**, then magnitude, area, and protected-area status.
