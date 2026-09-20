@@ -48,9 +48,16 @@ def dequantize(v):
 # ---- Sentinel-2 --------------------------------------------------------
 STAC = "https://earth-search.aws.element84.com/v1/search"
 S2_COLLECTION = "sentinel-2-l2a"
-S2_MGRS = ["17RLN", "17RLP"]                       # AOI straddles both
+S2_MGRS = ["17RLN", "17RLP"]                       # informational: which tiles the AOI touches.
+                                                   # NOT a filter - 02_fetch derives tiles from coverage.
 S2_MONTH = 12                                      # FL dry season: clear scenes cluster in December
 S2_MAX_CLOUD = 10
+S2_MIN_COVER = 0.999                               # a date must fill the AOI. S2 granules are clipped to
+                                                   # the orbit swath, so a 0.1%-cloud date can still be
+                                                   # half empty - that bug shipped once already.
+S2_MIN_COVER_ONDISK = 0.95                         # accept-an-existing-file gate. Looser than the above:
+                                                   # scattered nodata from cloud masking is normal (2024
+                                                   # lands at 98.6%); a swath cut is not (2017 was 54%).
 
 # ---- GDAL env ----------------------------------------------------------
 GDAL_ENV = {
