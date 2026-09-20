@@ -1,0 +1,43 @@
+# ---- Pipeline data --------------------------------------------------------
+# Regenerate with: ./processing-pipeline/run_all.sh
+# Nothing here belongs in git: raw/ holds 213 MB embedding mosaics per year and
+# out/ holds the shipped COGs. All of it is reproducible from the scripts.
+# NOTE: must be data/* not data/ - git cannot re-include a file whose parent
+# directory is excluded, so the negation below would never apply.
+processing-pipeline/data/*
+!processing-pipeline/data/fl_tile_index.json
+processing-pipeline/logs/
+processing-pipeline/.venv/
+processing-pipeline/__pycache__/
+
+# ---- Python ---------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# ---- Frontend build artifacts (source is owned separately) ----------------
+client/node_modules/
+client/dist/
+client/.vite/
+# mirrored copy of pipeline output - regenerate with rsync, see plans/05
+client/public/data/
+
+# ---- Local convenience ----------------------------------------------------
+# symlink to processing-pipeline/data/out
+app/
+
+# ---- Large geospatial artifacts (belt and braces) -------------------------
+*.tif
+*.tiff
+*.vrt
+*.geojson
+*.joblib
+aef_index.csv
+
+# ---- OS / editor ----------------------------------------------------------
+.DS_Store
+*.swp
+.idea/
+.vscode/
