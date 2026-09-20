@@ -1,0 +1,17 @@
+
+Title:
+Improving the perceived and modeling utility of the NASA Globe Observer in Gainesville through change detection analysis and community science tasking with satellite vector embeddings.
+
+Questions:
+How can we increase the utility of GLOBE Observer data in building useful datasets for ai models?
+Can we extend GLOBE Observer data to aid in environmental conservation and protection.
+How can improve community engagement with the GLOBE Observer by increasing the perceived utility to users?
+
+High Level Ideas
+- Analyze AlphaEarth satellite embeddings from Google to detect year over year change in Gainesville through cosine similarity
+- Create a web application showing sentinel-2 imagery, change-map cog, geotagged observer data, focused on Gainesville.
+- Allow admin analysts to “Task” users on the globe observer to document locations that have changed
+- Stretch goal: AI Gaussian splat of globe data.
+
+Curriculum
+- Classification & Regression: “Mapping Land Cover From GLOBE Data and Satellite Embeddings” link: “https://geo-di-lab.github.io/emerge-geoai/docs/ch5/lesson1.html”
