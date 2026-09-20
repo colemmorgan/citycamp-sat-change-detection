@@ -1,0 +1,244 @@
+DESIGN SYSTEM IMPLEMENTATION
+
+Use shadcn/ui as the component foundation for the entire application.
+
+All standard UI components should be implemented using shadcn components where an equivalent exists, including:
+- Buttons
+- Inputs
+- Selects
+- Dropdown menus
+- Context menus
+- Dialogs
+- Sheets
+- Tabs
+- Tooltips
+- Popovers
+- Command menus
+- Checkboxes
+- Radio groups
+- Switches
+- Sliders
+- Tables
+- Cards
+- Badges
+- Alerts
+- Toasts
+- Navigation/menu components
+- Form components
+
+Do not create one-off component styling when an existing shadcn component can be extended or themed.
+
+Override the default shadcn theme to use the provided design tokens. Do not retain the default shadcn blue/neutral action colors.
+
+TYPOGRAPHY
+
+Use Google Fonts:
+- Display/title font: Funnel Display
+- Body/UI font: Funnel Sans
+
+Use Funnel Display primarily for:
+- Page titles
+- Major headings
+- Large section titles
+- Important display-level text
+
+Use Funnel Sans for:
+- Body text
+- Navigation
+- Buttons
+- Inputs
+- Labels
+- Metadata
+- Tooltips
+- Tables
+- General application UI
+
+Typography should feel technical, clean, and slightly distinctive without becoming decorative.
+
+BORDER RADIUS
+
+The application should generally use tight, restrained corner radii.
+
+Default:
+- Most components: 4px
+- Large containers / large dialogs / major surfaces: 8px
+- Very small controls / compact elements: 2px
+
+Avoid the highly rounded "modern SaaS" appearance common in default shadcn implementations.
+
+Do not use pill-shaped controls unless the component specifically calls for a pill, such as a status indicator or compact tag.
+
+COLOR / ACTION THEME
+
+Use the provided semantic tokens.
+
+ICON:
+- icon-base: #939496
+- icon-active: #E2E3E5
+
+TEXT:
+- text-body: #E2E3E5
+- text-heading: #F5F5F5
+- text-on-action: #FEFEFF
+
+SURFACE:
+- surface-0: #090909
+- surface-1: #0F1011
+- surface-2: #16171A
+- surface-3: #1A1C1F
+- surface-4: #2D2E30
+- surface-action: #5E69D1
+
+BORDER:
+- border-0: #1F1F24
+- border-1: #25262B
+- border-action: #6C77E5
+
+The purple/indigo action color (#5E69D1) replaces the default shadcn primary/action color throughout the application.
+
+Use #6C77E5 for action borders, focus states, selected states, and active outlines where appropriate.
+
+Do not introduce additional accent colors unless they represent a semantic state such as success, warning, or error.
+
+VISUAL DIRECTION
+
+The application is a professional geospatial/remote-sensing tool.
+
+The visual language should be inspired by desktop GIS, satellite imagery analysis, and professional technical software rather than a generic SaaS dashboard.
+
+Key characteristics:
+
+1. DARK AND IMMERSIVE
+- The application should use a very dark UI chrome.
+- The map/imagery should visually dominate the interface.
+- UI surfaces should feel like a layer above the map rather than competing with it.
+- Avoid large bright panels or excessive white space.
+
+2. DENSE AND COMPACT
+- Favor compact controls and efficient use of screen real estate.
+- Toolbars should be relatively short in height.
+- Navigation and controls should not have excessive padding.
+- Multiple controls can coexist horizontally when appropriate.
+- The interface should feel optimized for users who spend significant time operating the application.
+
+3. TECHNICAL / PROFESSIONAL
+- Prioritize clarity and function over decorative styling.
+- Avoid excessive gradients, shadows, glassmorphism, floating cards, or marketing-style UI.
+- Avoid excessive rounded containers.
+- Borders and subtle surface changes should establish hierarchy more than shadows.
+
+4. MAP-FIRST
+- The geospatial canvas is the primary visual element.
+- UI chrome should frame and control the map rather than obscure it.
+- Panels should generally use dark translucent/opaque surfaces with subtle borders.
+- Imagery should remain visually prominent.
+
+5. TOOLBAR-DRIVEN INTERACTION
+The primary application controls should feel similar to professional GIS/image annotation software:
+- Compact top toolbar
+- Tool groups separated by subtle dividers
+- Icon + label where the action needs clarification
+- Icon-only controls where the function is familiar
+- Clear active/selected states
+- Small dropdown indicators
+- Compact tooltips
+
+6. PANEL DESIGN
+Side panels should:
+- Use surface-1 / surface-2 backgrounds
+- Have subtle 1px borders
+- Use tight spacing
+- Have clear section headers
+- Avoid excessive card nesting
+- Maintain a strong visual hierarchy without heavy shadows
+
+7. ACTIVE STATES
+Selected tools, active layers, focused controls, and currently selected objects should be immediately recognizable.
+
+Use:
+- surface-action (#5E69D1)
+- border-action (#6C77E5)
+- text-on-action (#FEFEFF)
+
+for primary active/action states.
+
+Do not rely solely on color to communicate state. Where appropriate also use:
+- background changes
+- borders
+- icon changes
+- typography
+- subtle indicators
+
+ICONOGRAPHY
+
+Use Lucide React (`lucide-react`) as the single default icon library.
+
+Icons should be simple, technical, and consistent, with a restrained line-based visual style.
+
+Prefer compact line icons with consistent stroke weight.
+
+Use:
+- icon-base (#939496) for inactive/default icons
+- icon-active (#E2E3E5) for active/high-emphasis icons
+- action colors for icons representing an active/action state
+
+Typical sizes:
+- 16px for compact controls
+- 18px for standard application controls
+- 20px for larger toolbar actions
+
+Avoid oversized decorative icons and avoid mixing icon libraries.
+
+The iconography should feel like professional GIS/image-analysis tooling.
+
+9. BORDERS
+Borders are an important part of the visual hierarchy.
+
+Prefer subtle 1px borders over shadows.
+
+Use:
+- border-0 for subtle separation
+- border-1 for stronger component boundaries
+- border-action for active/focused/selected states
+
+10. SHADOWS
+Use shadows sparingly.
+
+The hierarchy should primarily come from:
+surface color → border → spacing → typography
+
+rather than large drop shadows.
+
+11. SPACING
+Use a compact spacing system based around 4px increments.
+
+Prefer:
+4px, 8px, 12px, 16px, 20px, 24px
+
+Avoid unnecessarily large gaps between controls.
+
+12. OVERALL FEEL
+
+The final result should feel like:
+- A professional satellite imagery / GIS application
+- Dense but not cluttered
+- Technical but polished
+- Dark and immersive
+- Precise and utilitarian
+- Designed for extended daily use
+- More like professional geospatial software than a consumer SaaS product
+
+The UI should feel "quiet" so that the imagery, annotations, geometry, and geospatial data remain the visual focus.
+
+Avoid:
+- Generic SaaS dashboard styling
+- Excessive rounded cards
+- Large empty layouts
+- Excessive shadows
+- Glassmorphism
+- Large gradients
+- Bright white surfaces
+- Oversized typography throughout the application
+- Excessive animation
+- Pill-shaped controls everywhere
+- Default shadcn blue/purple styling
